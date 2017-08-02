@@ -1,0 +1,61 @@
+{
+  "name": "map-props-changes-to-callbacks",
+  "version": "1.0.0",
+  "description": "React's HOC utility to easily map props changes in a component to the specified callbacks.",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "prepare": "npm run build",
+    "build": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist",
+    "lint": "eslint ./src",
+    "lintfix": "eslint ./src --fix",
+    "testonly": "mocha $npm_package_options_mocha",
+    "test": "npm run lint && npm run testonly",
+    "test-watch": "npm run testonly -- --watch --watch-extensions js"
+  },
+  "options": {
+    "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.js"
+  },
+  "keywords": ["react", "hoc", "props", "callback"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lukaleli/map-props-changes-to-callbacks"
+  },
+  "author": "Lukasz Lelinski <lukasz@lelinski.pl> (https://programmersbyproducts.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.6.4",
+    "babel-core": "^6.7.4",
+    "babel-eslint": "7.2.3",
+    "babel-plugin-transform-es2015-modules-umd": "6.24.1",
+    "babel-plugin-transform-flow-strip-types": "6.22.0",
+    "babel-polyfill": "^6.7.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.9.0",
+    "eslint": "4.3.0",
+    "eslint-config-airbnb": "15.1.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-react": "7.1.0",
+    "flow-copy-source": "1.2.0",
+    "jsdom": "^8.1.0",
+    "mocha": "^2.4.5",
+    "nodemon": "^1.9.1",
+    "react": "^15.0.0",
+    "react-addons-test-utils": "^15.0.0",
+    "react-dom": "^15.0.0",
+    "rimraf": "2.6.1",
+    "sinon": "^1.17.3"
+  },
+  "peerDependencies": {
+    "react": "~0.14.8 || ^15.0.0",
+    "react-dom": "~0.14.8 || ^15.0.0"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.6.1",
+    "hoist-non-react-statics": "2.2.1"
+  }
+}
