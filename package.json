@@ -1,6 +1,6 @@
 {
   "name": "map-props-changes-to-callbacks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React's HOC utility to easily map props changes in a component to the specified callbacks.",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,12 @@
   "options": {
     "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.js"
   },
-  "keywords": ["react", "hoc", "props", "callback"],
+  "keywords": [
+    "react",
+    "hoc",
+    "props",
+    "callback"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/lukaleli/map-props-changes-to-callbacks"
