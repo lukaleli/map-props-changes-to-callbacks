@@ -1,10 +1,11 @@
 # map-props-changes-to-callbacks
 
-*React's HOC utility to easily map props changes in a component to the specified callbacks.*
+React's HOC utility to easily map props changes in a component to the specified callbacks.
 
 ### Why?
-There are some cases when we need do something when some particular prop change occur in our component
-, eg. `isLoading` prop changes from `false` to `true` and vice versa. Wouldn't it be great if we could easily map these transitions to well-named callbacks like this:
+
+There are some cases when we need to do something when some particular prop change occurs in our component
+, eg. `isLoading` prop changes its value from `false` to `true` and vice versa. Wouldn't it be great if we could easily map these transitions to well-named callbacks like this:
 
 ```javascript
 // isLoading: false => true
@@ -57,7 +58,7 @@ class MyComponent extends Component {
 }
 
 /**
-  Specify mappings which is an object where
+  Mappings is an object where
   keys are callbacks names and values are
   functions accepting previous and next props
   and returning true or false to tell the HOC 
@@ -77,5 +78,6 @@ export default enhance(MyComponent)
 ```
 
 **IMPORTANT NOTE**
-If you're composing multiple HOCs with `compose` utility from `redux` library make sure that `map-props-changes-to-callbacks` comes **as the outermost in the chain**. Otherwise callback mappings won't work!
+
+If you're composing multiple HOCs with `compose` utility from the `redux` library make sure that `map-props-changes-to-callbacks` comes **as the outermost in the chain**. Otherwise callback mappings won't work!
 
