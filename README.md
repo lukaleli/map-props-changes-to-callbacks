@@ -87,7 +87,7 @@ export default enhance(MyComponent)
 
 ### withOrderedCallbacks
 
-`withOrderedCallbacks` is useful when you want your callbacks to be called in specified order. Also, you can suppress further callbacks execution on specific props change if you provide `suppressAfter` option. Mappings, unlike as in in `withCallbacks` HOC, are provided in a form of array of objects. Remember that the order of objects in the array defines an order of execution!
+`withOrderedCallbacks` is useful when you want your callbacks to be called in specified order. Also, you can suppress further callbacks execution on specific props change if you provide `suppressAfter` option. Mappings, unlike as in `withCallbacks` HOC, are provided as an array of objects. Remember that the order of objects in the array defines an order of execution!
 
 ```javascript
 import React, { Component } from 'react'  
