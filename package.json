@@ -1,6 +1,6 @@
 {
   "name": "map-props-changes-to-callbacks",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "React's HOC utility to easily map props changes in a component to the specified callbacks.",
   "main": "index.js",
   "scripts": {
