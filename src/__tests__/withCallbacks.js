@@ -1,14 +1,20 @@
 import React from 'react'
 
-import { shallow, mount, render } from 'enzyme'
+import { mount } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 
-import withCallbacks from '../index'
+import withCallbacks from '../withCallbacks'
 import TestComponent from './TestComponent'
 
 describe('withCallback', () => {
   let mappings
+
+  before(() => {
+    sinon.spy(TestComponent.prototype, 'onUploadStart')
+    sinon.spy(TestComponent.prototype, 'onUploadEnd')
+  })
+
   beforeEach(() => {
     mappings = {
       onUploadStart: (prev, next) => !prev.isUploading && next.isUploading,
@@ -17,7 +23,6 @@ describe('withCallback', () => {
   })
 
   it('calls onUploadStart when isUploading prop changes from false to true', () => {
-    sinon.spy(TestComponent.prototype, 'onUploadStart')
     const WrappedComponent = withCallbacks(mappings)(TestComponent)
     const wrapper = mount(<WrappedComponent />)
     wrapper.setProps({ isUploading: true })
@@ -25,9 +30,8 @@ describe('withCallback', () => {
   })
 
   it('calls onUploadEnd when isUploading prop changes from true to false', () => {
-    sinon.spy(TestComponent.prototype, 'onUploadEnd')
     const WrappedComponent = withCallbacks(mappings)(TestComponent)
-    const wrapper = mount(<WrappedComponent isUploading={true} />)
+    const wrapper = mount(<WrappedComponent isUploading />)
     wrapper.setProps({ isUploading: false })
     expect(TestComponent.prototype.onUploadEnd.calledOnce).to.equal(true)
   })

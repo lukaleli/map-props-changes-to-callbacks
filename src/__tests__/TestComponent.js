@@ -1,7 +1,4 @@
-// @flow
-
 import React, { Component } from 'react'
-import withCallbacks from '../index'
 
 class TestComponent extends Component {
   static defaultProps = {
@@ -13,7 +10,7 @@ class TestComponent extends Component {
   onUploadEnd() {}
 
   render() {
-    return <div>Testing component</div>
+    return <div>Callbacks test component</div>
   }
 }
 

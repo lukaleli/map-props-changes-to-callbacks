@@ -29,19 +29,27 @@ Well, `map-props-changes-to-callbacks` does exactly that.
 
 With ES2015:
 
-`import withCallbacks from 'map-props-changes-to-callbacks'`
+`import { withCallbacks, withOrderedCallbacks } from 'map-props-changes-to-callbacks'`
 
 With ES5:
 
-`var withCallbacks = require('map-props-changes-to-callbacks').default`
+```javascript
+var withCallbacks = require('map-props-changes-to-callbacks').withCallbacks
+var withOrderedCallbacks = require('map-props-changes-to-callbacks').withOrderedCallbacks
+```
 
 ## Usage
+
+
+### withCallbacks
+
+`withCallbacks` HOC is useful when you don't care about the callbacks execution order. Also it will fire every callback that matched provided rule on every props change.
 
 ```javascript
 import React, { Component } from 'react'  
 import { connect } from 'react-redux'  
 import { compose } from 'redux'  
-import withCallbacks from 'map-props-changes-to-callbacks'
+import { withCallbacks } from 'map-props-changes-to-callbacks'
 
 class MyComponent extends Component {  
   onUploadStart() {
@@ -72,6 +80,70 @@ const mappings = {
 const enhance = compose(  
   connect( ({ documents }) => ({isUploading: documents.isUploading, error: documents.error}) ),
   withCallbacks(mappings)
+)
+
+export default enhance(MyComponent)  
+```
+
+### withOrderedCallbacks
+
+`withOrderedCallbacks` is useful when you want your callbacks to be called in specified order. Also, you can suppress further callbacks execution on specific props change if you provide `suppressAfter` option. Mappings, unlike as in in `withCallbacks` HOC, are provided in a form of array of objects. Remember that the order of objects in the array defines an order of execution!
+
+```javascript
+import React, { Component } from 'react'  
+import { connect } from 'react-redux'  
+import { compose } from 'redux'  
+import { withOrderedCallbacks } from 'map-props-changes-to-callbacks'
+
+class MyComponent extends Component {  
+  onUploadStart() {
+    console.log('onUploadStart')
+  }
+
+  onUploadEnd() {
+    console.log('onUploadEnd')
+  }
+
+  onUploadError() {
+    console.log('onUploadError')
+  }
+}
+
+/**
+  Mappings is an array of objects with following properties:
+  
+  name (String)           -> name of the callback
+  rule (Function)         -> predicate describing when to call this function
+  suppressAfter (boolean) -> if set to true will suppress next callbacks
+                            specified in the mappings array from execution (OPTIONAL)
+  
+**/
+
+
+/**
+  In this case every time when the onUploadEnd rule is be true
+  onUploadError (and any other callback specified AFTER the onUploadEnd) 
+  will not be called, because suppressAfter option is set to true for onUploadEnd
+**/
+const mappings = [
+  {
+    name: 'onUploadStart',
+    rule: (prev, next) => !prev.isUploading && next.isUploading,
+  },
+  {
+    name: 'onUploadEnd',
+    rule: (prev, next) => prev.isUploading && !next.isUploading,
+    suppressAfter: true,
+  },
+  {
+    name: 'onUploadError',
+    rule: (prev, next) => !prev.error && next.error,
+  }
+]
+
+const enhance = compose(  
+  connect( ({ documents }) => ({isUploading: documents.isUploading, error: documents.error}) ),
+  withOrderedCallbacks(mappings)
 )
 
 export default enhance(MyComponent)  
